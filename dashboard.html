@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="lineawesome/css/line-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head> 
-<body>
+<body onload="fillAdminName(), totalCategory(), totalProducts(), createProduct(event)">
     <div class="pagemodal">
         <div class="preloader">
             <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-ripple" style="background:0 0"><circle cx="50" cy="50" r="4.719" fill="none" stroke="#1d3f72" stroke-width="2"><animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="3" keySplines="0 0.2 0.8 1" begin="-1.5s" repeatCount="indefinite"/><animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="3" keySplines="0.2 0 0.8 1" begin="-1.5s" repeatCount="indefinite"/></circle><circle cx="50" cy="50" r="27.591" fill="none" stroke="#5699d2" stroke-width="2"><animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="3" keySplines="0 0.2 0.8 1" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="3" keySplines="0.2 0 0.8 1" begin="0s" repeatCount="indefinite"/></circle></svg>
@@ -30,22 +30,18 @@
        <div class="sidebar-menu">
        <ul>
             <li>
-             <a href="dashboard.html" class="active" style="text-decoration: none;"><span class="lar la-chart-bar" style="color: #b6cc00;"></span><span>Dashboard</span></a>
-            </li>
-            <li>
-               <a href="categories.html" style="text-decoration: none;"><span class="las la-layer-group" style="color: #b6cc00;"></span><span>Categories</span></a>
-              </li>
-            <!-- <li>
-             <a href="learning.html" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Learning Materials</span></a>
-            </li>
-            <li>
-                <a href="quiz.html" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Quiz</span></a>
-            </li> -->
-            <li>
-                <a href="admin.html" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Admin Profile</span></a>
-            </li>
-            <li style="cursor: pointer;">
-             <a onclick="logout()" style="text-decoration: none;"><span class="las la-lock" style="color: #b6cc00;"></span><span class="logspan">Logout</span></a>
+                <a href="dashboard.html" class="active"><span class="las la-tachometer-alt" style="color: #b6cc00;"></span><span>Dashboard</span></a>
+                </li>
+                <li>
+                <a href="categories.html"><span class="las la-tags" style="color: #b6cc00;"></span><span>Categories</span></a>
+                </li>
+                <li>
+                <a href="product.html"><span class="las la-user-shield" style="color: #b6cc00;"></span><span>Products</span></a>
+                </li>
+                <li>
+                <a href="admin.html"><span class="las la-user-shield" style="color: #b6cc00;"></span><span>Admin Profile</span></a>
+                </li>
+                <a onclick="logout()" style="color: #b6cc00;"><span class="las la-lock" style="color: #b6cc00;"></span><span class="logspan">Logout</span></a>
             </li>
        </ul>
     </div>
@@ -67,127 +63,197 @@
                     <div class="card-body">
                         <span class="las la-clipboard-list" style="color: #b6cc00; font-size: 32px;"></span>
                         <div>
-                            <h6>Total Categories</h6>
+                            <h6>Total Category</h6>
                             <h5 id="category"></h5>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card-single">
-                    <div class="card-body">
-                        <span class="las la-layer-group" style="color: #b6cc00; font-size: 32px;"></span>
-                        <div>
-                            <h6>learning Materials</h6>
-                            <h5 id="learnmat"></h5>
-                        </div>
-                    </div>
-                </div> -->
+                
                 <div class="card-single">
                     <div class="card-body">
                         <span class="las la-file-invoice" style="color: #b6cc00; font-size: 32px;"></span>
                         <div>
-                            <h6>Total Subcategories</h6>
+                            <h6>Total Products</h6>
+                            <h5 id="totalprod"></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div class="card-body">
+                        <span class="las la-file-invoice" style="color: #b6cc00; font-size: 32px;"></span>
+                        <div>
+                            <h6>Total Customers</h6>
+                            <h5 id="subCat"></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-single mt-4">
+                    <div class="card-body">
+                        <span class="las la-file-invoice" style="color: #b6cc00; font-size: 32px;"></span>
+                        <div>
+                            <h6>Total Orders</h6>
                             <h5 id="subCat"></h5>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <h2 class="text-center mt-5">Create Product</h2>
-                    <form id="product-form">
-                        <input type="text" id="product-name" placeholder="Product Name" required  class="mb-3"/>
-                        <input type="text" id="product-image" placeholder="Cloudinary URL" class="mb-3"/>
-                         <!-- <label for="imgprev" class="font-mulish font-size-14 font-weight-600">Cloudinary Images Url</label> -->
-                        <input type="text" name="imgprev" id="imgprev" class="input mb-3" placeholder="Enter Your Cloudinary Images Url / Preview  ">
-                        <img src="" alt="prev" class=" w-50 my-4" id="category-cloud-prev" style="height: 300px; display: none;">
-                        <input type="text" id="product-price" placeholder="Price" required  class="mb-2"/>
-                        <textarea class="form-control mt-2 mb-3 p-2 "  id="product-description" placeholder="Product Description"  style="height: 100px; resize: none; border: 1px solid #BD3A3A; outline: none;"></textarea>
-                        <input type="text" id="product-Number" placeholder="Product Number" required  class="mb-2"/>
-                        <input type="number" id="numberInStock" placeholder="number In Stock" required  class="mb-2"/>
-                        <!-- Dropdown for categories -->
-                        <select id="product-category" required class="w-lg-50 border-danger p-2">
-                            <option value="" id="product-category-option">--select product--</option>
-                        </select>
-                        
-                        <img src="" alt="prev" class="d-none w-50 my-4" id="category-cloud-prev" style="height: 300px;">
 
-                        <button class="button mt-5 button-blue font-weight-700" type="button" onclick="createProduct(event)">
-                            <div class="spinner-border spinner-border-sm text-light spin" role="status">
-                                <span class="sr-only"></span>
-                            </div>
-                            Create Product
+    <!-- table for product details  -->
+            <div class="table-responsive mb-5" style="margin-top: 15%;">
+                <table class="table table-striped table-hover" id="products-table">
+                    <h1 class="shadow">About Our Products</h1>
+                    <thead>
+                    <tr >
+                        <th class="bg-danger">Product</th>
+                        <th class="bg-danger">Price</th>
+                        <th class="bg-danger">Stock</th>
+                        <th class="bg-light "><a href="./products.html" class="text-primary font-weight-bold">View More ></a></th>
+                    </tr>
+                    </thead>
+                    <tbody id="products-body"></tbody>
+                </table>
+            </div>
+            <!-- table for product categories  -->
+            <div class="table-responsive mb-5" style="margin-top: 5%;">
+                <table class="table table-striped table-hover" id="category-table">
+                    <h1 class="shadow">All Categories</h1>
+                    <thead>
+                    <tr >
+                        <th class="bg-danger">Category Name</th>
+                        <th class="bg-light "><a href="./categories.html" class="text-primary font-weight-bold">View More ></a></th>
+                    </tr>
+                    </thead>
+                    <tbody id="category-body"></tbody>
+                </table>
+            </div>
+            <!--section for Product Modal -->
+            <section class="modal fade" id="productDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header  bg-danger">
+                        <h5 class="modal-title">Product Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span>&times;</span>
                         </button>
-                        
-                    </form>
+                    </div>
+                    <div class="modal-body" id="product-modal-body">
+                        <!-- product details go here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary bg-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
                 </div>
-               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                   <div class="scroll-bg">
-                        <div class="scroll-div">
-                           <div class="scroll-object">
-                               
-                           </div>
+            </section>
+            <!-- graph row  -->
+            <!-- <section class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm p-3">
+                        <h6>Sales Trends</h6>
+                        <div class="chart-wrap">
+                            <canvas id="lineChart"></canvas>
                         </div>
-                   </div>
-               </div>
-           </div>
-           
-            <!-- <div class="dash-cards"> -->
-                <!-- <div class="card-single">
-                    <div class="card-body">
-                        <span class="las la-check-square" style="color: #b6cc00; font-size: 32px;"></span>
-                        <div>
-                            <h6>Total Quiz</h6>
-                            <h5 id="quiz"></h5>
+                    </div>
+                    </div>
+                <div class="col-md-3 mb-4">
+                <div class="card shadow-sm p-3">
+                        <h6>Daily Visits</h6>
+                        <div class="chart-wrap small">
+                            <canvas id="barChart"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="card-single"> -->
-                    <!-- <div class="card-body">
-                        <span class="las la-user-graduate" style="color: #b6cc00; font-size: 32px;"></span>
-                        <div>
-                            <h6>Total Students</h6>
-                            <h5 id="student"></h5>
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm p-3">
+                        <h6>Best-Selling Products</h6>
+                        <div class="chart-wrap small">
+                            <canvas id="donutChart"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="card-single">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <button class="top-three" onclick="studentModal(event)">Top three Students</button>
-                        </div>
-                    </div> -->
-                <!-- </div>
-            </div> -->
+            </section> -->
+            <!-- section for customer and order table  -->
 
-            <!-- <div class="outer-wrapper mt-5"> -->
-                <!-- <div class="table-wrapper">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Position</th>
-                                <th>Total score</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-id">
-                            
-                        </tbody>
-                    </table>
-                </div> -->
-            <!-- </div> -->
-            <!-- <div id="dash-modal" class="mymodal"> -->
-                <!-- <div class="modal-content">
-                    <div class="modal-header">
-                     <h2>Top three student</h2>
-                        <span class="close" onclick="closeDashModal()">&times;</span>
+            <section class="row" style="margin-top: 5%;">
+                <!-- Customers List -->
+                <div class=" col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card shadow w-100">
+                        <div class="card-header d-flex justify-content-between bg-white">
+                            <strong>New Customers</strong>
+                            <strong><a href="">view all</a></strong>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="customer-avatar mr-2">A</div>
+                                <div>
+                                    Annette Black <br>
+                                    <small class="text-muted">Customer ID #13842</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="customer-avatar mr-2">R</div>
+                                <div>
+                                    Rafsan Ravinho <br>
+                                    <small class="text-muted">Customer ID #12678</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="customer-avatar mr-2">M</div>
+                                <div>
+                                    Mostaq Ahmed <br>
+                                    <small class="text-muted">Customer ID #17859</small>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="modal-body">
-                        <div class="allstudent"></div>
+                </div>
+                <!-- Orders Table -->
+                <div class="col-md-8 mb-4 mt-5 mt-lg-0 mt-md-0" >
+                    <div class="card shadow w-100" >
+                        <div class="d-flex justify-content-between">
+                            <div class="card-header bg-white"><strong>Order List</strong></div>
+                            <div class="card-header bg-white"><strong><a href="./orders.html">View All</a></strong></div>
+                        </div>
+                        <div class="table-responsive p-0">
+                            <table class="table table-striped table-hover" id="products-table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Payment Number</th>
+                                        <th>Date & Time</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#10321</td>
+                                        <td>Jul 19, 2024 - 3:30 PM</td>
+                                        <td>$350.00</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#00910</td>
+                                        <td>Jul 01, 2024 - 3:30 PM</td>
+                                        <td>$570.00</td>
+                                        <td><span class="badge badge-danger">Declined</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#84333</td>
+                                        <td>Jun 21, 2024 - 3:30 PM</td>
+                                        <td>$840.00</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div> -->
-            <!-- </div> -->
+                </div>
+            </section>
+
+
+            
        </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
