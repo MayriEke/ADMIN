@@ -1,6 +1,5 @@
 
 // function for signing/register admin
-// function for signing/register admin
 function createAccount(event) {
     event.preventDefault();
     // triggers the spinning animation
@@ -130,7 +129,7 @@ function logIn(event) {
             localStorage.setItem("token", result.token);
             localStorage.setItem("adminName", result.name);
 
-            if (result._id) {
+            if (result.token) {
                 Swal.fire({
                     icon: 'success',
                     text: "Login Successful",
@@ -158,6 +157,7 @@ function logIn(event) {
             spinItem.style.display = "none";
         });
 }
+
 
 // function for filling admin name
 function fillAdminName() {
@@ -364,6 +364,7 @@ function closeCatModal() {
     const getModal = document.getElementById("my-modal3");
     getModal.style.display = "none";
 }
+
 // function to update category from the modal
 function updateCategorymodel(event) {
     event.preventDefault();
@@ -694,7 +695,7 @@ function deleteProduct(id) {
                 } else {
                     Swal.fire({
                         icon: 'info',
-                        text: result.message || 'Failed to delete category',
+                        text: result.message || 'Failed to delete product',
                         confirmButtonColor: "#2D85DE"
                     });
                     spinItem.style.display = "none";
