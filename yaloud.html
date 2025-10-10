@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./images/BYC LOGO JPG FILE 1.png" type="image/x-icon">
-    <title>Admin | BYC</title>
-    <!-- <script src="oauth.js"></script> -->
+    <title>Admin | Yoruba Aloud</title>
+    <script src="oauth.js"></script>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="shortcut icon" href="./images/BYC LOGO JPG FILE 1.png" type="image/x-icon">
+
     <!-- Linewesome -->
     <link rel="stylesheet" href="lineawesome/css/line-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="fillAdminName()">
+<body>
 
    <input type="checkbox" id="nav-toggle">
     <div class="sidebar bg-dark">
        <div class="sidebar-brand">
        <!-- <img class="uk-margin-small-right in-offset-top-10" src="img/nan.png" alt="wave" width="95" height="50" data-uk-img> -->
-       BYC ADMIN
+       Yoruba Aloud
        </div>
 
        <div class="sidebar-menu">
@@ -32,7 +31,10 @@
                <a href="categories.html" style="text-decoration: none;"><span class="las la-layer-group" style="color: #b6cc00;"></span><span>Categories</span></a>
               </li>
             <li>
-             <a href="product.html" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Products</span></a>
+             <a href="learning.html" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Learning Materials</span></a>
+            </li>
+            <li>
+                <a href="quiz.html" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Quiz</span></a>
             </li>
             <li>
                 <a href="admin.html" class="active" style="text-decoration: none;"><span class="las la-file-upload" style="color: #b6cc00;"></span><span>Admin Profile</span></a>
@@ -55,8 +57,8 @@
         </header>
 
        <main>
-            <form id="updateForm">
-                <h2 class="text-center spin" style="color: #BD3A3A;">Update Profile</h2>
+            <form id="signForm">
+                <h2 class="text-center spin">Update Profile</h2>
                 <label for="Name" class="font-mulish font-size-14 font-weight-600">Update Name</label>
                 <input type="text" name="updateName" id="updateName" class="input mb-3" placeholder="Enter Name">
                     
@@ -74,7 +76,7 @@
             <hr>
 
             <form>
-                <h2 class="text-center spin" style="color: #BD3A3A;">Update Password</h2>
+                <h2 class="text-center spin">Update Password</h2>
                 <label for="Email" class="font-mulish font-size-14 font-weight-600">Enter Current Email</label>
                 <input type="email" name="updatePassEmail" id="updatePassEmail" class="input mb-3" placeholder="Enter Email Address">
 

@@ -634,11 +634,13 @@ function updateProduct(id) {
     .then((response) => response.json())
     .then((result) => {
       console.log(result);
-      if (!result.product) {
+
+    if (!result || !result._id) {
         console.error("No product in response!");
         return;
-      }
-      const product = result.product;
+    }
+        const product = result;
+
       // Prefill inputs
     //   document.getElementById("product-id").value = product._id;
       document.getElementById("productUpdate-name").value = product.name;
@@ -803,6 +805,72 @@ function totalProducts() {
 }
 // PRODUCT DASHBOARD ENDS HERE
 
+
+// UPDATING ADMIN PROFILE AND PASSWORD / UNFINISHED
+
+    function upDateAdmin(event) {
+    event.preventDefault();
+    const spinItem = document.querySelector(".spin");
+    const updateName = document.getElementById("updateName").value;
+    const updateEmail = document.getElementById("updateEmail").value;
+    if (updateName === "" || updateEmail === "") {
+        Swal.fire({
+            icon: 'info',
+            text: 'All fields are required!',
+            confirmButtonColor: "#BD3A3A"
+        })
+        spinItem.style.display = "none";
+        return;
+    }
+    else {
+        const token = localStorage.getItem("key");
+        const updateItem = new Headers();
+        updateItem.append("Authorization", `Bearer ${token}`);
+        const myId = localStorage.getItem("catId");
+        const updateData = new FormData();
+        updateData.append("name", updateName);
+        updateData.append("email", updateEmail);
+        // catData.append("category_id", myId);
+        const updateMethod = {
+            method: 'POST',
+            headers: updateItem,
+            body: updateData
+        };
+        const url = `${baseUrl}/admin_update_profile`;
+        fetch(url, updateMethod)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+            if (result.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    text: `${result.message}`,
+                    confirmButtonColor: "#2D85DE"
+                })
+                spinItem.style.display = "inline-block";
+                setTimeout(() => {
+                    location.reload();
+                }, 4000)
+            }
+            else {
+                Swal.fire({
+                    icon: 'info',
+                    text: `${result.status}`,
+                    confirmButtonColor: "#2D85DE"
+                })
+                spinItem.style.display = "none";
+            }
+        })
+        .catch(error => console.log('error', error));
+    }
+}
+
+    // LOG OUT FUNCTION
+// logout page
+function logout() {
+    localStorage.clear();
+    location.href = "index.html"
+}
 
 
 
